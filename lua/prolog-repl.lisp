@@ -248,7 +248,7 @@
 (defun custom-repl ()
   (format t "Welcome to PAIP-Prolog REPL!~%")
   (loop
-     (format t "> ")
+     (format t "~%> ")
      (let ((input (read)))
        (unless (eq input ':exit) ; :exitで終了
          (handler-case

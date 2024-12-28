@@ -35,9 +35,10 @@ local function run_in_floating_terminal(cmd)
     row = row,
     col = col,
     style = "minimal",
+    border= "rounded",
   })
 
-  vim.api.nvim_buf_set_option(buf, "buftype", "terminal")
+  --vim.api.nvim_buf_set_option(buf, "buftype", "terminal")
   vim.fn.termopen(cmd, {
     on_exit = function()
       vim.api.nvim_win_close(win, true)
@@ -51,7 +52,7 @@ local function run_in_horizontal_terminal(cmd)
   vim.cmd("split")
   local buf = vim.api.nvim_get_current_buf()
 
-  vim.api.nvim_buf_set_option(buf, "buftype", "terminal")
+  --vim.api.nvim_buf_set_option(buf, "buftype", "terminal")
   vim.fn.termopen(cmd, {
     on_exit = function()
       vim.cmd("bdelete!")
@@ -73,8 +74,8 @@ end
 -- Run CommonLisp file
 M.run_clisp = function(file_path)
   local script_dir = get_script_dir()
-  local repl_path = script_dir .. "/repl.lisp"
-  local cmd = { "clisp-run", repl_path, file_path }
+  local repl_path = script_dir .. "/repl.lua"
+  local cmd = { "nvim","--headless","-c", "luafile"..repl_path,"-c","qa","-u","NONE" }
 
   -- Use the appropriate terminal type for execution
   run_command(cmd)
@@ -83,8 +84,8 @@ end
 -- Run Prolog
 M.run_prolog = function()
   local script_dir = get_script_dir()
-  local prolog_path = script_dir .. "/prolog.lisp"
-  local cmd = { "clisp-run", prolog_path }
+  local prolog_path = script_dir .. "/prolog.lua"
+  local cmd = { "nvim","--headless","-c", "luafile"..prolog_path,"-c","qa","-u","NONE" }
 
   -- Use the appropriate terminal type for execution
   run_command(cmd)

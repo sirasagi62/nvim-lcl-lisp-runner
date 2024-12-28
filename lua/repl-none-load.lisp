@@ -1,10 +1,9 @@
 ;; copyright (c) 2024 OKABE Gota
 
-(defvar should-quit nil)
 (defun start-repl (&optional path)
   "Start simple REPL."
   (when path
-    (format t "Loading: ~a~%" path)
+    (format t path)
     (if (probe-file path)
         (load path)
         (format t "Error: File ~a does not exist.~%" path)))
@@ -19,3 +18,4 @@
               (error (e)
                 (format t "Error: ~A~%" e)))
             (format t "Error: Invalid input.~%"))))))
+(start-repl)
