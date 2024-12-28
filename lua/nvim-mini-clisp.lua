@@ -75,7 +75,7 @@ end
 M.run_clisp = function(file_path)
   local script_dir = get_script_dir()
   local repl_path = script_dir .. "/repl.lua"
-  local cmd = { "nvim","--headless","-c", "luafile"..repl_path,"-c","qa","-u","NONE" }
+  local cmd = { "nvim","--headless","-c", "cd"..script_dir.."|".."luafile"..repl_path,"-c","qa","-u","NONE" }
 
   -- Use the appropriate terminal type for execution
   run_command(cmd)
@@ -85,7 +85,7 @@ end
 M.run_prolog = function()
   local script_dir = get_script_dir()
   local prolog_path = script_dir .. "/prolog.lua"
-  local cmd = { "nvim","--headless","-c", "luafile"..prolog_path,"-c","qa","-u","NONE" }
+  local cmd = { "nvim","--headless","-c", "cd"..script_dir.."|".."luafile"..prolog_path,"-c","qa","-u","NONE" }
 
   -- Use the appropriate terminal type for execution
   run_command(cmd)
@@ -95,7 +95,7 @@ end
 M.eliza = function()
   local script_dir = get_script_dir()
   local prolog_path = script_dir .. "/eliza.lua"
-  local cmd = { "nvim","--headless","-c", "luafile"..prolog_path,"-c","qa","-u","NONE" }
+  local cmd = { "nvim","--headless","-c", "cd"..script_dir.."|".."luafile"..prolog_path,"-c","qa","-u","NONE" }
 
   -- Use the appropriate terminal type for execution
   run_command(cmd)
