@@ -6,4 +6,4 @@ end
 -- Load LCL produced LCL
 dofile("lcl.lua")
 -- Compile all stdlib files
-eval('(load "prolog-repl.lisp")')
+eval('(load "eliza.lisp")')

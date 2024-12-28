@@ -91,6 +91,17 @@ M.run_prolog = function()
   run_command(cmd)
 end
 
+-- Talk with Eliza
+M.eliza = function()
+  local script_dir = get_script_dir()
+  local prolog_path = script_dir .. "/eliza.lua"
+  local cmd = { "nvim","--headless","-c", "luafile"..prolog_path,"-c","qa","-u","NONE" }
+
+  -- Use the appropriate terminal type for execution
+  run_command(cmd)
+end
+
+
 -- Command definitions
 vim.api.nvim_create_user_command("ClispRun", function(opts)
   local file_path = opts.args or "%"
@@ -100,6 +111,10 @@ end, { nargs = "?" })
 
 vim.api.nvim_create_user_command("PrologRun", function()
   M.run_prolog()
+end, {})
+
+vim.api.nvim_create_user_command("Eliza", function()
+  M.eliza()
 end, {})
 
 return M
