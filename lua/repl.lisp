@@ -4,7 +4,7 @@
 (defun start-repl (&optional path)
   "Start simple REPL."
   (when path
-    (format t "Loading: ~a~%" path)
+    (format t "~%Loading: ~a~%" path)
     (if (probe-file path)
         (load path)
         (format t "Error: File ~a does not exist.~%" path)))

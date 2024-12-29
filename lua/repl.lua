@@ -5,7 +5,7 @@ if type(jit) ~= 'table' then
 end
 print("Welcome to CommonLisp REPL!")
 print("To Exit REPL, input Ctlr-C.")
-if (arg[1] == nil) then
+if (input_file == nil) then
   function run_with_arg()
     dofile("lcl.lua")
     eval('(load "repl-none-load.lisp")')
@@ -19,9 +19,10 @@ if (arg[1] == nil) then
   end
 else
   function run_with_arg()
+    print(input_file)
     dofile("lcl.lua")
     eval('(load "repl.lisp")')
-    eval('(start-repl "' .. arg[1] .. '")')
+    eval('(start-repl "' .. input_file .. '")')
   end
   while true do
     local e,msg = pcall(run_with_arg)

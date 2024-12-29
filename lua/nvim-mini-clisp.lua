@@ -76,7 +76,10 @@ M.run_clisp = function(file_path)
   local script_dir = get_script_dir()
   local repl_path = script_dir .. "/repl.lua"
   local cmd = { "nvim","--headless","-c", "cd"..script_dir.."|".."luafile"..repl_path,"-c","qa","-u","NONE" }
-
+  if (file_path) then
+    local nvim_cmd = "cd"..script_dir.."|".."lua input_file='"..file_path.."' dofile('"..repl_path.."')"
+    cmd = { "nvim","--headless","-c",nvim_cmd ,"-c","qa","-u","NONE" }
+  end
   -- Use the appropriate terminal type for execution
   run_command(cmd)
 end
@@ -103,17 +106,16 @@ end
 
 
 -- Command definitions
-vim.api.nvim_create_user_command("ClispRun", function(opts)
-  local file_path = opts.args or "%"
-  file_path = vim.fn.expand(file_path) -- Expand % to full file path
+vim.api.nvim_create_user_command("RunMiniClisp", function(opts)
+  local file_path = opts.fargs[1] and vim.fn.expand(opts.fargs[1]) or nil
   M.run_clisp(file_path)
 end, { nargs = "?" })
 
-vim.api.nvim_create_user_command("PrologRun", function()
+vim.api.nvim_create_user_command("RunProlog", function()
   M.run_prolog()
 end, {})
 
-vim.api.nvim_create_user_command("Eliza", function()
+vim.api.nvim_create_user_command("RunEliza", function()
   M.eliza()
 end, {})
 
