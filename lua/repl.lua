@@ -19,7 +19,6 @@ if (input_file == nil) then
   end
 else
   function run_with_arg()
-    print(input_file)
     dofile("lcl.lua")
     eval('(load "repl.lisp")')
     eval('(start-repl "' .. input_file .. '")')
