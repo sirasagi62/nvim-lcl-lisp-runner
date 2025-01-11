@@ -6,6 +6,7 @@ This Neovim plugin allows you to execute CommonLisp and Prolog code directly fro
 
 - Run CommonLisp files using the `:RunMiniClisp` command.
 - Run Prolog programs written in CommonLisp using the `:RunProlog` command.
+- Run Eliza programs written in CommonLisp using the `:RunEliza` command.
 - Automatically closes the terminal window after execution completes.
 
 ## Requirements
@@ -27,7 +28,7 @@ use {
 
 ## Setup
 
-Call `require('nvim-mini-clisp')`.
+All you need is calling `require('nvim-mini-clisp')`.
 
 ```lua
 require('nvim-mini-clisp')
@@ -37,7 +38,7 @@ require('nvim-mini-clisp')
 
 ### `:RunMiniClisp [file]`
 
-Runs the specified CommonLisp file. If no file is provided, the current file (`%`) is used.
+Loads and runs the specified CommonLisp file, with the REPL taking over after execution. If `%` is given, the current file is used. If no file is given, the REPL starts without loading any file. 
 
 Example:
 
