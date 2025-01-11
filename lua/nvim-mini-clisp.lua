@@ -8,11 +8,6 @@ local config = {
   use_floating_window = true, -- Default to using floating windows
 }
 
--- Setup function to allow user configuration
-M.setup = function(user_config)
-  config = vim.tbl_extend("force", config, user_config or {})
-end
-
 -- Helper function to get the directory of the current script
 local function get_script_dir()
   local info = debug.getinfo(1, "S")
@@ -48,9 +43,8 @@ local function run_in_floating_terminal(cmd)
 end
 
 -- Helper function to run a command in a horizontal split terminal
-local function run_in_horizontal_terminal(cmd)
+--[[local function run_in_horizontal_terminal(cmd)
   vim.cmd("split")
-  local buf = vim.api.nvim_get_current_buf()
 
   --vim.api.nvim_buf_set_option(buf, "buftype", "terminal")
   vim.fn.termopen(cmd, {
@@ -61,14 +55,18 @@ local function run_in_horizontal_terminal(cmd)
   vim.cmd("resize 10") -- Adjust height if needed
   vim.cmd("startinsert")
 end
+]]
 
 -- Helper function to choose terminal type based on configuration
 local function run_command(cmd)
+  run_in_floating_terminal(cmd)
+  --[[
   if config.use_floating_window then
     run_in_floating_terminal(cmd)
   else
     run_in_horizontal_terminal(cmd)
   end
+  ]]
 end
 
 -- Run CommonLisp file
