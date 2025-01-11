@@ -107,7 +107,7 @@ end
 
 -- Command definitions
 vim.api.nvim_create_user_command("RunMiniClisp", function(opts)
-  local file_path = opts.fargs[1] and vim.fn.expand(opts.fargs[1]) or nil
+  local file_path = opts.fargs[1] and vim.fn.expand(opts.fargs[1]..":p") or nil
   M.run_clisp(file_path)
 end, { nargs = "?" })
 
