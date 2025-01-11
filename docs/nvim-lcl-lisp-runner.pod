@@ -1,0 +1,118 @@
+---
+name: nvim-lcl-lisp-runner
+description: A Neovim plugin to execute Common Lisp without any external dependencies.
+---
+
+=pod
+
+=head1 nvim-lcl-lisp-runner
+
+This Neovim plugin allows you to execute Common Lisp code directly from your editor using a floating window without any external dependencies. The plugin also provides Prolog and Eliza implemented in Common Lisp for demo.
+
+=head2 Features X<nvim-lcl-lisp-runner-features>
+
+=over
+
+=item * Run Common Lisp files using the C<:RunLCL> command.
+
+=item * Run Prolog programs written in Common Lisp using the C<:RunProlog> command.
+
+=item * Run Eliza programs written in Common Lisp using the C<:RunEliza> command.
+
+=item * Automatically closes the terminal window after execution completes.
+
+=back
+
+=head2 Requirements X<nvim-lcl-lisp-runner-requirements>
+
+=over
+
+=item * Neovim 0.5 or later built with LuaJIT (not Lua).
+
+=back
+
+=head2 Installation X<nvim-lcl-lisp-runner-installation>
+
+Using L<packer.nvim|https://github.com/wbthomason/packer.nvim>:
+
+  ```lua
+  use {
+    'siraragi62/nvim-lcl-lisp-runner',
+    config = function()
+      require('nvim-lcl-lisp-runner')
+    end
+  }
+  ```
+
+=head2 Setup X<nvim-lcl-lisp-runner-setup>
+
+All you need is calling C<require('nvim-lcl-lisp-runner')>.
+
+  ```lua
+  require('nvim-lcl-lisp-runner')
+  ```
+
+=head2 Commands X<nvim-lcl-lisp-runner-commands>
+
+=head3 C<:RunLCL [file]> X<nvim-lcl-lisp-runner-:RunLCL>
+
+Loads and runs the specified Common Lisp file, with the REPL taking over after execution. If C<%> is given, the current file is used. If no file is given, the REPL starts without loading any file.
+
+Example:
+
+  ```vim
+  :RunLCL
+  :RunLCL path/to/file.lisp
+  :RunLCL %
+  ```
+
+=head3 C<:RunProlog> X<nvim-lcl-lisp-runner-:RunProlog>
+
+Executes the PAIP Prolog interpreter in Common Lisp.
+
+Example:
+
+  ```vim
+  :RunProlog
+  ```
+
+=head3 C<:RunEliza> X<nvim-lcl-lisp-runner-:RunEliza>
+
+Executes the PAIP Eliza in Common Lisp.
+
+Example:
+
+  ```vim
+  :RunEliza
+  ```
+
+=head2 How it works X<nvim-lcl-lisp-runner-how-it-works>
+
+Common Lisp runs on LCL, a Common Lisp implementation in Lua. Eliza and Prolog are both implemented by running the Common Lisp implementation included in PAIP on LCL.
+
+
+=head2 Limitations X<nvim-lcl-lisp-runner-limitations>
+
+Since LCL is not a complete Common Lisp implementation, there are some constraints on execution.
+
+=over
+
+=item * Some standard library functions are not referenced in this version, even though they are implemented by LCL. Programs that depend on them must reimplement the standard functions themselves. L<Standard library implementations|https://codeberg.org/gsou/LCL/src/branch/main/stdlib> are available in the LCL repository.
+
+=item * Common Lisp cannot be run on the original Lua interpreter in this version. Run it on Neovim with LuaJIT (official binaries, default build settings use LuaJIT).
+
+=back
+
+=head2 Tips X<nvim-lcl-lisp-runner-tips>
+
+LCL can call Lua functions through the LCL Lua API, so you can extend as needed. See the L<README|https://codeberg.org/gsou/LCL#headline-9> in the LCL repository for instructions on how to use the LCL Lua API.
+
+=head2 License
+
+This plugin is licensed under the MIT License.
+
+=head2 Acknowledgement
+
+LCL, a Lua implementation of Common Lisp, is provided under the MIT License by gsou. Eliza and Prolog implementations in Common Lisp are provided under the MIT License by Peter Norvig at PAIP. All of these components are copyrighted by the original copyright holder under the MIT License.
+
+=cut

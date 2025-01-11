@@ -1,17 +1,17 @@
-# CommonLisp and Prolog Runner Plugin
+# nvim-lcl-lisp-runner
 
-This Neovim plugin allows you to execute CommonLisp and Prolog code directly from your editor using either a floating window or a horizontal split terminal. The behavior is fully configurable.
+This Neovim plugin allows you to execute CommonLisp code directly from your editor using a floating window. The plugin also provides Prolog and Eliza implemented in CommonLisp for demo.
 
 ## Features
 
-- Run CommonLisp files using the `:RunMiniClisp` command.
+- Run CommonLisp files using the `:RunLCL` command.
 - Run Prolog programs written in CommonLisp using the `:RunProlog` command.
 - Run Eliza programs written in CommonLisp using the `:RunEliza` command.
 - Automatically closes the terminal window after execution completes.
 
 ## Requirements
 
-- Neovim 0.5 or later.
+- Neovim 0.5 or later built with LuaJIT (not Lua).
 
 ## Installation
 
@@ -19,33 +19,33 @@ Using [packer.nvim](https://github.com/wbthomason/packer.nvim):
 
 ```lua
 use {
-  'siraragi62/nvim-mini-clisp',
+  'siraragi62/nvim-lcl-lisp-runner',
   config = function()
-    require('nvim-mini-clisp'))
+    require('nvim-lcl-lisp-runner'))
   end
 }
 ```
 
 ## Setup
 
-All you need is calling `require('nvim-mini-clisp')`.
+All you need is calling `require('nvim-lcl-lisp-runner')`.
 
 ```lua
-require('nvim-mini-clisp')
+require('nvim-lcl-lisp-runner')
 ```
 
 ## Commands
 
-### `:RunMiniClisp [file]`
+### `:RunLCL [file]`
 
 Loads and runs the specified CommonLisp file, with the REPL taking over after execution. If `%` is given, the current file is used. If no file is given, the REPL starts without loading any file. 
 
 Example:
 
 ```vim
-:RunMiniClisp
-:RunMiniClisp path/to/file.lisp
-:RunMiniClisp %
+:RunLCL
+:RunLCL path/to/file.lisp
+:RunLCL %
 ```
 
 ### `:RunProlog`
@@ -70,7 +70,7 @@ Example:
 
 ## How it works
 
-MiniClisp runs on [LCL](https://codeberg.org/gsou/LCL), a CommonLisp implementation in Lua. Eliza and Prolog are both implemented by running the CommonLisp implementation included in PAIP on LCL.
+CommonLisp runs on [LCL](https://codeberg.org/gsou/LCL), a CommonLisp implementation in Lua. Eliza and Prolog are both implemented by running the CommonLisp implementation included in PAIP on LCL.
 
 ## Limitations
 
