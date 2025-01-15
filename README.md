@@ -89,4 +89,4 @@ This plugin is licensed under the MIT License.
 
 ## Acknowledgement
 
-LCL, a Lua implementation of CommonLisp, is provided under the MIT License by gsou. Eliza and Prolog implementations in CommonLisp are provided under the MIT License by Peter Norvig at PAIP. All of these components are copyrighted by the original copyright holder under the MIT License.
+[LCL](https://codeberg.org/gsou/LCL), a Lua implementation of CommonLisp, is provided under the MIT License by gsou. Eliza and Prolog implementations in CommonLisp are provided under the MIT License by Peter Norvig in ["Paradigms of Artificial Intelligence Programming: Case Studies in Common Lisp"](https://github.com/norvig/paip-lisp). All of these components are copyrighted by the original copyright holder under the MIT License.
