@@ -1,6 +1,6 @@
 # nvim-lcl-lisp-runner
 
-This Neovim plugin allows you to execute CommonLisp code directly from your editor using a floating window. The plugin also provides Prolog and Eliza implemented in CommonLisp for demo.
+This Neovim plugin allows you to execute CommonLisp code without any external dependencies. The plugin also provides Prolog and Eliza implemented in CommonLisp for demo.
 
 ## Features
 
