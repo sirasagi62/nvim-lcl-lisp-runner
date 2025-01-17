@@ -107,9 +107,9 @@ M.eliza = function()
 end
 
 M.run_clisp_env = function(file_path)
-  local cmd = vim.tbl_deep_extend('error', config.clisp_cmd,{})
+  local cmd = vim.list_extend(config.clisp_cmd,{})
   if (file_path) then
-    cmd = vim.tbl_deep_extend('error', config.clisp_with_file_cmd, { file_path })
+    cmd = vim.list_extend(config.clisp_with_file_cmd, { file_path })
   end
   -- Use the appropriate terminal type for execution
   run_command(cmd)
