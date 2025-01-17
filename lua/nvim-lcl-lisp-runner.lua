@@ -5,13 +5,15 @@ local M = {}
 local vim = vim
 -- Configuration
 local config = {
-  use_floating_window = true, -- Default to using floating windows
+  use_clisp_env = false,
+  clisp_cmd = {},
+  clisp_with_file_cmd = {}
 }
 
 -- Helper function to get the directory of the current script
 local function get_script_dir()
   local info = debug.getinfo(1, "S")
-  local script_path = info.source:sub(2) -- Remove the '@'
+  local script_path = info.source:sub(2)         -- Remove the '@'
   return vim.fn.fnamemodify(script_path, ":p:h") -- Get absolute path and directory
 end
 
@@ -30,7 +32,7 @@ local function run_in_floating_terminal(cmd)
     row = row,
     col = col,
     style = "minimal",
-    border= "rounded",
+    border = "rounded",
   })
 
   --vim.api.nvim_buf_set_option(buf, "buftype", "terminal")
@@ -73,10 +75,10 @@ end
 M.run_clisp = function(file_path)
   local script_dir = get_script_dir()
   local repl_path = script_dir .. "/repl.lua"
-  local cmd = { "nvim","--headless","-c", "cd"..script_dir.."|".."luafile"..repl_path,"-c","qa","-u","NONE" }
+  local cmd = { "nvim", "--headless", "-c", "cd" .. script_dir .. "|" .. "luafile" .. repl_path, "-c", "qa", "-u", "NONE" }
   if (file_path) then
-    local nvim_cmd = "cd"..script_dir.."|".."lua input_file='"..file_path.."' dofile('"..repl_path.."')"
-    cmd = { "nvim","--headless","-c",nvim_cmd ,"-c","qa","-u","NONE" }
+    local nvim_cmd = "cd" .. script_dir .. "|" .. "lua input_file='" .. file_path .. "' dofile('" .. repl_path .. "')"
+    cmd = { "nvim", "--headless", "-c", nvim_cmd, "-c", "qa", "-u", "NONE" }
   end
   -- Use the appropriate terminal type for execution
   run_command(cmd)
@@ -86,7 +88,8 @@ end
 M.run_prolog = function()
   local script_dir = get_script_dir()
   local prolog_path = script_dir .. "/prolog.lua"
-  local cmd = { "nvim","--headless","-c", "cd"..script_dir.."|".."luafile"..prolog_path,"-c","qa","-u","NONE" }
+  local cmd = { "nvim", "--headless", "-c", "cd" .. script_dir .. "|" .. "luafile" .. prolog_path, "-c", "qa", "-u",
+    "NONE" }
 
   -- Use the appropriate terminal type for execution
   run_command(cmd)
@@ -96,18 +99,40 @@ end
 M.eliza = function()
   local script_dir = get_script_dir()
   local prolog_path = script_dir .. "/eliza.lua"
-  local cmd = { "nvim","--headless","-c", "cd"..script_dir.."|".."luafile"..prolog_path,"-c","qa","-u","NONE" }
+  local cmd = { "nvim", "--headless", "-c", "cd" .. script_dir .. "|" .. "luafile" .. prolog_path, "-c", "qa", "-u",
+    "NONE" }
 
   -- Use the appropriate terminal type for execution
   run_command(cmd)
 end
 
+M.run_clisp_env = function(file_path)
+  local cmd = vim.tbl_deep_extend('error', config.clisp_cmd)
+  if (file_path) then
+    cmd = vim.tbl_deep_extend('error', config.clisp_with_file_cmd, { file_path })
+  end
+  -- Use the appropriate terminal type for execution
+  run_command(cmd)
+end
+
+M.setup = function(tbl)
+  config = tbl
+  -- define clisp cmd
+  if (config.clisp_cmd and config.clisp_with_file_cmd) then
+    vim.api.nvim_create_user_command("RunClisp", function(opts)
+      local file_path = opts.fargs[1] and vim.fn.expand(opts.fargs[1] .. ":p") or nil
+      M.run_clisp_env(file_path)
+    end, { nargs = "?" })
+  end
+end
 
 -- Command definitions
 vim.api.nvim_create_user_command("RunLCL", function(opts)
-  local file_path = opts.fargs[1] and vim.fn.expand(opts.fargs[1]..":p") or nil
+  local file_path = opts.fargs[1] and vim.fn.expand(opts.fargs[1] .. ":p") or nil
   M.run_clisp(file_path)
 end, { nargs = "?" })
+
+
 
 vim.api.nvim_create_user_command("RunProlog", function()
   M.run_prolog()
@@ -118,4 +143,3 @@ vim.api.nvim_create_user_command("RunEliza", function()
 end, {})
 
 return M
-
