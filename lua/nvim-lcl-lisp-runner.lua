@@ -88,6 +88,10 @@ end
 M.run_prolog = function()
   local script_dir = get_script_dir()
   local prolog_path = script_dir .. "/prolog.lua"
+  if config.clisp_with_file_cmd then
+    M.run_clisp_env(prolog_path)
+    return
+  end
   local cmd = { "nvim", "--headless", "-c", "cd" .. script_dir .. "|" .. "luafile" .. prolog_path, "-c", "qa", "-u",
     "NONE" }
 
@@ -98,8 +102,12 @@ end
 -- Talk with Eliza
 M.eliza = function()
   local script_dir = get_script_dir()
-  local prolog_path = script_dir .. "/eliza.lua"
-  local cmd = { "nvim", "--headless", "-c", "cd" .. script_dir .. "|" .. "luafile" .. prolog_path, "-c", "qa", "-u",
+  local eliza_path = script_dir .. "/eliza.lua"
+  if config.clisp_with_file_cmd then
+    M.run_clisp_env(eliza_path)
+    return
+  end
+  local cmd = { "nvim", "--headless", "-c", "cd" .. script_dir .. "|" .. "luafile" .. eliza_path, "-c", "qa", "-u",
     "NONE" }
 
   -- Use the appropriate terminal type for execution
