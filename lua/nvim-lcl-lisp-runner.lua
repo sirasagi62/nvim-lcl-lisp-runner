@@ -89,7 +89,7 @@ M.run_prolog = function()
   local script_dir = get_script_dir()
   local prolog_path = script_dir .. "/prolog.lua"
   if config.clisp_with_file_cmd then
-    M.run_clisp_env(prolog_path)
+    M.run_clisp_env(script_dir.."/prolog-repl.lisp")
     return
   end
   local cmd = { "nvim", "--headless", "-c", "cd" .. script_dir .. "|" .. "luafile" .. prolog_path, "-c", "qa", "-u",
@@ -104,7 +104,7 @@ M.eliza = function()
   local script_dir = get_script_dir()
   local eliza_path = script_dir .. "/eliza.lua"
   if config.clisp_with_file_cmd then
-    M.run_clisp_env(eliza_path)
+    M.run_clisp_env(script_dir.."/eliza.lisp")
     return
   end
   local cmd = { "nvim", "--headless", "-c", "cd" .. script_dir .. "|" .. "luafile" .. eliza_path, "-c", "qa", "-u",
